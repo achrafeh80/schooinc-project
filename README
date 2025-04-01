@@ -1,0 +1,157 @@
+# 🏢 SchooInc - Full Stack School Management System
+
+Bienvenue dans le projet **SchooInc**, une application web full-stack permettant aux étudiants et professeurs de gérer cours, classes, notes et utilisateurs. Ce projet utilise une architecture à base de **microservices GraphQL**, un **frontend React + TailwindCSS**, et une **base de données MongoDB**.
+
+---
+
+## 🌐 Technologies
+
+### Backend :
+- Node.js
+- Express
+- Apollo Server (GraphQL)
+- Microservices (user, course, class, grade)
+- MongoDB + Mongoose
+- JWT Authentication
+
+### Frontend :
+- React (Vite)
+- TailwindCSS
+- Apollo Client
+- React Router DOM
+
+---
+
+## 📁 Structure du projet
+
+```
+schooinc-app/
+├── backend/
+│   ├── user-service/
+│   ├── class-service/
+│   ├── course-service/
+│   ├── grade-service/
+│   ├── gateway/
+│   └── shared/
+└── frontend/
+    └── schooinc-frontend/
+```
+
+---
+
+## ✨ Installation
+
+### 1. Cloner le projet
+```bash
+git clone <repo-url>
+cd schooinc-app
+```
+
+### 2. Installer les dépendances
+
+Dans chaque dossier `user-service`, `class-service`, `course-service`, `grade-service`, `gateway` et `frontend/schooinc-frontend`, exécute :
+
+```bash
+npm install
+```
+
+### 3. Configurer les fichiers `.env`
+Crée un fichier `.env` dans chaque microservice backend avec les variables suivantes :
+
+#### Exemple pour `user-service`
+```
+PORT=4001
+MONGO_URI=mongodb://localhost:27017/user-service
+JWT_SECRET=schooinc-secret
+```
+
+Répète pour chaque service avec le port correspondant (4002, 4003, 4004...)
+
+### 4. Lancer les services
+Dans des terminaux séparés :
+```bash
+cd backend/user-service && npm start
+cd backend/class-service && npm start
+cd backend/course-service && npm start
+cd backend/grade-service && npm start
+cd backend/gateway && npm start
+```
+
+### 5. Lancer le frontend
+```bash
+cd frontend/schooinc-frontend
+npm run dev
+```
+
+---
+
+## 🔐 Authentification
+
+- Utilise JWT
+- Les tokens sont stockés dans `localStorage`
+- L'utilisateur peut s'enregistrer et se connecter via `/register` et `/login`
+
+---
+
+## 🔧 Fonctionnalités
+
+### Utilisateur
+- Création, lecture, modification, suppression de compte
+- Rôles : `student` ou `professor`
+
+### Cours
+- Création, modification, suppression (prof seulement)
+- Lecture publique pour tous les utilisateurs connectés
+
+### Classes
+- Gestion des classes par les professeurs
+- Attribution des étudiants aux classes
+
+### Notes
+- Uniquement créées / modifiées par les professeurs
+- Lecture personnelle pour l'étudiant connecté
+- Statistiques (min, max, médiane) calculées en backend
+
+---
+
+## 🧰 Tests manuels GraphQL
+
+Utilisez un client GraphQL (Altair, Postman, etc.) :
+- URL : `http://localhost:4000/graphql`
+- Authentification : Ajoutez un header `Authorization: Bearer <token>`
+- Voir le fichier `tests.graphql` pour toutes les requêtes prêtes à tester
+
+---
+
+## 🚀 Lancement rapide (dev)
+```bash
+# Backend (dans 5 terminaux ou via tmux)
+npm start (pour chaque service)
+
+# Frontend
+cd frontend/schooinc-frontend
+npm run dev
+```
+
+Frontend dispo ici : [http://localhost:5173](http://localhost:5173)
+Gateway GraphQL ici : [http://localhost:4000/graphql](http://localhost:4000/graphql)
+
+---
+
+## ✅ TODO et extensions possibles
+- Ajout d'un panneau admin
+- Système de notifications
+- Historique des notes / journaux
+- Upload de documents de cours (PDF, etc.)
+- Tests unitaires et e2e (Jest + Playwright)
+
+---
+
+## 👨‍💼 Auteurs
+- Projet réalisé dans le cadre de SchooInc Ltd
+- Fullstack microservice app par [votre équipe]
+
+---
+
+Merci pour votre utilisation de SchooInc 🎓 !
+
