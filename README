@@ -34,7 +34,7 @@ schooinc-app/
 │   ├── gateway/
 │   └── shared/
 └── frontend/
-    └── schooinc-frontend/
+    
 ```
 
 ---
@@ -62,7 +62,7 @@ Crée un fichier `.env` dans chaque microservice backend avec les variables suiv
 ```
 PORT=4001
 MONGO_URI=mongodb://localhost:27017/user-service
-JWT_SECRET=schooinc-secret
+
 ```
 
 Répète pour chaque service avec le port correspondant (4002, 4003, 4004...)
@@ -119,7 +119,7 @@ npm run dev
 Utilisez un client GraphQL (Altair, Postman, etc.) :
 - URL : `http://localhost:4000/graphql`
 - Authentification : Ajoutez un header `Authorization: Bearer <token>`
-- Voir le fichier `tests.graphql` pour toutes les requêtes prêtes à tester
+
 
 ---
 
@@ -135,21 +135,6 @@ npm run dev
 
 Frontend dispo ici : [http://localhost:5173](http://localhost:5173)
 Gateway GraphQL ici : [http://localhost:4000/graphql](http://localhost:4000/graphql)
-
----
-
-## ✅ TODO et extensions possibles
-- Ajout d'un panneau admin
-- Système de notifications
-- Historique des notes / journaux
-- Upload de documents de cours (PDF, etc.)
-- Tests unitaires et e2e (Jest + Playwright)
-
----
-
-## 👨‍💼 Auteurs
-- Projet réalisé dans le cadre de SchooInc Ltd
-- Fullstack microservice app par [votre équipe]
 
 ---
 
