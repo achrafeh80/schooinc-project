@@ -22,6 +22,7 @@ module.exports = gql`
     gradeStatsByStudent(studentId: ID!): GradeStats!
     gradeStatsByClass(classId: ID!): GradeStats!
     gradeStatsByCourse(courseId: ID!): GradeStats!
+    listGradesByStudent(studentId: ID!): [Grade!]!
   }
 
   type Mutation {

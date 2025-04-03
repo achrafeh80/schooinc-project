@@ -45,6 +45,10 @@ module.exports = {
       const values = grades.map(g => g.value);
       return computeStats(values);
     },
+    listGradesByStudent: async (_, { studentId }, { user }) => {
+      if (!user || user.role !== 'professor') throw new Error("Only professors");
+      return await Grade.find({ studentId });
+    },
   },
 
   Mutation: {

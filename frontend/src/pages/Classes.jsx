@@ -81,7 +81,6 @@ export default function Classes() {
   const [name, setName] = useState('');
   const [editName, setEditName] = useState('');
   const [selectedClassId, setSelectedClassId] = useState(null);
-  const [studentId, setStudentId] = useState('');
   const [successMessage, setSuccessMessage] = useState(null);
   const [warningMessage, setWarningMessage] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -264,30 +263,16 @@ export default function Classes() {
                   ))}
                 </ul>
 
-                <form onSubmit={e => {
-                  e.preventDefault();
-                  addStudentToClass({ variables: { classId: selectedClassId, studentId } });
-                }} className="flex space-x-2 mt-4">
-                  <input
-                    value={studentId}
-                    onChange={e => setStudentId(e.target.value)}
-                    placeholder="ID étudiant"
-                    className="border p-2 rounded w-full"
-                    required
-                  />
-                  <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
-                    Ajouter
-                  </button>
-                </form>
+
               </>
             )}
           </div>
         )}
       </div>
 
-      {usersData && (
+      {usersData && ( 
         <div className="bg-white p-4 rounded shadow border h-fit">
-          <h3 className="text-lg font-bold mb-4">Tous les utilisateurs</h3>
+          <h3 className="text-lg font-bold mb-4">Étudiants</h3>
           <ul className="divide-y">
             {usersData.listUsers.map(user => (
               <li key={user.id} className="flex justify-between items-center py-2">
