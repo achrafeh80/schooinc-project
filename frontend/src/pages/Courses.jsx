@@ -1,6 +1,6 @@
 import { gql, useQuery, useMutation } from '@apollo/client';
-import { useState } from 'react';
-
+import { useContext,useState } from 'react';
+import { AuthContext } from '../auth/AuthContext';
 // GraphQL queries et mutations
 const LIST = gql`
   query {
@@ -43,6 +43,7 @@ export default function Courses() {
   const [form, setForm] = useState({ id: null, title: '', description: '' });
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
+  const { auth } = useContext(AuthContext);
 
   // Mutations
   const [createCourse] = useMutation(CREATE, {
@@ -135,48 +136,53 @@ export default function Courses() {
         </div>
       )}
 
-      {/* Formulaire */}
-      <form onSubmit={handleSubmit} className="mb-8 bg-white p-6 rounded-lg shadow-sm">
-        <div className="space-y-4">
-          <div>
-            <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
-              Titre du cours
-            </label>
-            <input
-              id="title"
-              value={form.title}
-              onChange={e => setForm(f => ({ ...f, title: e.target.value }))}
-              className="border w-full p-2 rounded-md focus:ring-2 focus:ring-blue-300 focus:border-blue-500 transition duration-200"
-              placeholder="Titre"
-              required
-            />
-          </div>
-          
-          <div>
-            <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
-              Description
-            </label>
-            <textarea
-              id="description"
-              value={form.description}
-              onChange={e => setForm(f => ({ ...f, description: e.target.value }))}
-              className="border w-full p-2 rounded-md h-24 focus:ring-2 focus:ring-blue-300 focus:border-blue-500 transition duration-200"
-              placeholder="Description"
-            />
-          </div>
-          
-          <button
-            type="submit"
-            className={`px-4 py-2 rounded-md text-white transition duration-200 ${
-              form.id 
-                ? 'bg-yellow-500 hover:bg-yellow-600 focus:ring-2 focus:ring-yellow-300' 
-                : 'bg-blue-600 hover:bg-blue-700 focus:ring-2 focus:ring-blue-300'
-            }`}
-          >
-            {form.id ? 'Mettre à jour' : 'Créer'}
-          </button>
-        </div>
-      </form>
+      {/* Formulaire visible uniquement pour les professeurs */}
+{auth.role === 'professor' && (
+  <form onSubmit={handleSubmit} className="mb-8 bg-white p-6 rounded-lg shadow-sm">
+    <div className="space-y-4">
+      <div>
+        <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
+          Titre du cours
+        </label>
+        <input
+          id="title"
+          name='title'
+          value={form.title}
+          onChange={e => setForm(f => ({ ...f, title: e.target.value }))}
+          className="border w-full p-2 rounded-md focus:ring-2 focus:ring-blue-300 focus:border-blue-500 transition duration-200"
+          placeholder="Titre"
+          required
+        />
+      </div>
+      
+      <div>
+        <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
+          Description
+        </label>
+        <textarea
+          id="description"
+          value={form.description}
+          name='description'
+          onChange={e => setForm(f => ({ ...f, description: e.target.value }))}
+          className="border w-full p-2 rounded-md h-24 focus:ring-2 focus:ring-blue-300 focus:border-blue-500 transition duration-200"
+          placeholder="Description"
+        />
+      </div>
+      
+      <button
+        type="submit"
+        className={`px-4 py-2 rounded-md text-white transition duration-200 ${
+          form.id 
+            ? 'bg-yellow-500 hover:bg-yellow-600 focus:ring-2 focus:ring-yellow-300' 
+            : 'bg-blue-600 hover:bg-blue-700 focus:ring-2 focus:ring-blue-300'
+        }`}
+      >
+        {form.id ? 'Mettre à jour' : 'Créer'}
+      </button>
+    </div>
+  </form>
+)}
+
 
       {/* Liste des cours */}
       <h3 className="text-xl font-semibold mb-4 text-gray-700">Liste des cours</h3>
@@ -193,7 +199,9 @@ export default function Courses() {
                 <h4 className="font-bold text-lg text-gray-800">{course.title}</h4>
                 <p className="text-gray-600 mt-1">{course.description}</p>
               </div>
-              <div className="flex space-x-3 sm:self-start">
+              {/* Actions pour les professeurs uniquement */}
+              {auth.role === 'professor' && (
+                <div className="flex space-x-3 sm:self-start">
                 <button
                   onClick={() => handleEdit(course)}
                   className="text-blue-600 hover:text-blue-800 font-medium transition duration-200 px-3 py-1 rounded hover:bg-blue-50"
@@ -207,6 +215,8 @@ export default function Courses() {
                   Supprimer
                 </button>
               </div>
+              )}
+              
             </div>
           </li>
         ))}

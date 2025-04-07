@@ -184,7 +184,7 @@ export default function Classes() {
           clearMessages();
           createClass({ variables: { name } });
         }} className="mb-6 flex space-x-2">
-          <input value={name} onChange={e => setName(e.target.value)} className="border w-full p-2 rounded"
+          <input name='name' value={name} onChange={e => setName(e.target.value)} className="border w-full p-2 rounded"
             placeholder="Nom de la classe" required />
           <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded">Créer</button>
         </form>
@@ -225,6 +225,7 @@ export default function Classes() {
                 >
                   <input
                     value={editName}
+                    name='nameUpd'
                     onChange={e => setEditName(e.target.value)}
                     placeholder="Nouveau nom"
                     className="border p-2 rounded w-full"
